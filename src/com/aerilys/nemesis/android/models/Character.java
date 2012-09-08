@@ -24,8 +24,8 @@ public class Character
 	public int Vitalite = 30;
 	public int currentPV = Vitalite;;
 	
-	public int Level;
-	public int XP;
+	public int Level = 1;
+	public int XP = 0;
 	
 
 }

@@ -4,14 +4,12 @@ import com.aerilys.nemesis.android.game.DataContainer;
 import com.aerilys.nemesis.android.game.Monster;
 
 import android.os.Bundle;
-import android.provider.ContactsContract.Contacts.Data;
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.aerilys.nemesis.android.models.Character;
@@ -25,9 +23,9 @@ public class MainActivity extends Activity
 	private TextView console;
 	private EditText editText;
 	private LinearLayout linearInput;
-	private ScrollView scrollContainer;
 	private boolean isCreated = false;
 	private RandomExtension rnd = new RandomExtension();
+	private int[] levelArray = new int[100];
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -38,16 +36,28 @@ public class MainActivity extends Activity
 		console = (TextView) findViewById(R.id.console);
 		editText = (EditText) findViewById(R.id.editText);
 		linearInput = (LinearLayout) findViewById(R.id.linearInput);
-		scrollContainer = (ScrollView) findViewById(R.id.scrollContainer);
-		
+
 		this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+		DataContainer.getInstance().initDatas();
+		initLevelArray();
 
 		initGame();
 	}
 
+	private void initLevelArray()
+	{
+		int i = 1;
+		levelArray[0] = 1000;
+		while (i <= levelArray.length-1)
+		{
+			levelArray[i] = (int) Math.floor(levelArray[i - 1] * 1.5);
+			i++;
+		}
+	}
+
 	private void initGame()
 	{
-		DataContainer.getInstance().initDatas();
+
 		linearInput.setVisibility(View.GONE);
 		println("Bienvenue aventurier ! Avant de pénétrer dans le donjon du terrible Nemesis et de combattre sa colère vengeresse, dis-moi en plus sur toi !");
 		println("Quel est ton nom ?");
@@ -141,7 +151,12 @@ public class MainActivity extends Activity
 			DataContainer.getInstance().currentCharacter.currentPV = pvAttaquant;
 
 			DataContainer.getInstance().currentCharacter.XP += monster.XP;
-			println("Vous gagnez " + monster.XP + " points d'experience !\nXP totale : "+DataContainer.getInstance().currentCharacter.XP+"\n");
+			println("Vous gagnez " + monster.XP + " points d'experience !\nXP totale : "
+					+ DataContainer.getInstance().currentCharacter.XP + "\n");
+
+			int currentLevel = getPlayerLevel(DataContainer.getInstance().currentCharacter.XP);
+			if (currentLevel > DataContainer.getInstance().currentCharacter.Level)
+				levelUp();
 
 			promptToContinue();
 			// TODO:lvl up
@@ -169,7 +184,7 @@ public class MainActivity extends Activity
 				+ DataContainer.getInstance().currentCharacter.Race
 				+ " de niveau "
 				+ DataContainer.getInstance().currentCharacter.Level);
-		
+
 		isCreated = false;
 		DataContainer.getInstance().currentCharacter = new Character();
 		initGame();
@@ -178,7 +193,7 @@ public class MainActivity extends Activity
 	private void nextStepDungeon()
 	{
 		prompt();
-		//scrollContainer.scrollTo(0, )
+		// scrollContainer.scrollTo(0, )
 		generateEvent();
 	}
 
@@ -198,7 +213,8 @@ public class MainActivity extends Activity
 				break;
 		}
 		DataContainer.getInstance().currentCharacter.currentPV = DataContainer.getInstance().currentCharacter.Vitalite;
-		println("Puisque rien ne se passe, vous regagnez tous vos points de vie ! Vous êtes maintenant à "+DataContainer.getInstance().currentCharacter.currentPV+"pv !");
+		println("Puisque rien ne se passe, vous regagnez tous vos points de vie ! Vous êtes maintenant à "
+				+ DataContainer.getInstance().currentCharacter.currentPV + "pv !");
 		prompt();
 		promptToContinue();
 	}
@@ -287,7 +303,8 @@ public class MainActivity extends Activity
 					+ DataContainer.getInstance().currentCharacter.Intelligence + "\nEndurance : "
 					+ DataContainer.getInstance().currentCharacter.Endurance + " - Vitalité : "
 					+ DataContainer.getInstance().currentCharacter.Vitalite + "\n\nPrêt ? Alors c'est parti !\n");
-			
+
+			editText.setText("");
 			DataContainer.getInstance().currentCharacter.currentPV = DataContainer.getInstance().currentCharacter.Vitalite;
 			promptToContinue();
 		}
@@ -305,6 +322,41 @@ public class MainActivity extends Activity
 		nextStepDungeon();
 	}
 
+	private int getPlayerLevel(int playerXp)
+	{
+		int i = 0;
+		int level = 1;
+		while (i < levelArray.length-1)
+		{
+			if (playerXp > levelArray[i])
+			{
+				level = i;
+			}
+			else
+				return level;
+
+			i++;
+		}
+		return level;
+	}
+
+	public void levelUp()
+	{
+		DataContainer.getInstance().currentCharacter.Level++;
+		DataContainer.getInstance().currentCharacter.Force++;
+		DataContainer.getInstance().currentCharacter.Intelligence++;
+		DataContainer.getInstance().currentCharacter.Endurance++;
+
+		int bonusVitalite = rnd.nextInt(2, 7);
+		DataContainer.getInstance().currentCharacter.Vitalite += bonusVitalite;
+
+		println("Félicitations, vous avez gagné un niveau ! \nEn plus d'un point dans toutes les caractèristiques, vous obtenez "
+				+ bonusVitalite
+				+ "pv en plus !\nVous êtes à présent niveau "
+				+ DataContainer.getInstance().currentCharacter.Level + " !");
+		
+	}
+
 	public void println(String message)
 	{
 		String text = console.getText().toString();
@@ -317,9 +369,6 @@ public class MainActivity extends Activity
 		linearInput.setVisibility(View.VISIBLE);
 	}
 
-	private void endPrompt()
-	{
-		linearInput.setVisibility(View.GONE);
-		editText.setText("");
-	}
+	/* private void endPrompt() { linearInput.setVisibility(View.GONE);
+	 * editText.setText(""); } */
 }
