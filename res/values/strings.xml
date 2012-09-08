@@ -1,0 +1,10 @@
+<resources>
+
+    <string name="app_name">NemesisRevenge</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">Nemesis</string>
+    <string name="ok">Ok</string>
+    <string name="hint">Commande...</string>
+
+</resources>
