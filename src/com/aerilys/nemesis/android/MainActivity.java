@@ -59,7 +59,7 @@ public class MainActivity extends Activity
 	{
 
 		linearInput.setVisibility(View.GONE);
-		println("Bienvenue aventurier ! Avant de pénétrer dans le donjon du terrible Nemesis et de combattre sa colère vengeresse, dis-moi en plus sur toi !");
+		println("Bienvenue aventurier ! Avant de pï¿½nï¿½trer dans le donjon du terrible Nemesis et de combattre sa colï¿½re vengeresse, dis-moi en plus sur toi !");
 		println("Quel est ton nom ?");
 		prompt();
 	}
@@ -131,7 +131,7 @@ public class MainActivity extends Activity
 			if (pvDefenseur < 0)
 				pvDefenseur = 0;
 
-			println("Vous infligez " + dmg + " dégâts à " + monster.Name + " ! Il lui reste " + pvDefenseur + "pv !");
+			println("Vous infligez " + dmg + " dï¿½gï¿½ts ï¿½ " + monster.Name + " ! Il lui reste " + pvDefenseur + "pv !");
 
 			randomDmg = rnd.nextInt(0, 7);
 			dmg = potentielDefenseur + randomDmg - DataContainer.getInstance().currentCharacter.Endurance;
@@ -141,7 +141,7 @@ public class MainActivity extends Activity
 			if (pvAttaquant < 0)
 				pvAttaquant = 0;
 
-			println(monster.Name + " vous attaque et vous inflige " + dmg + " dégâts ! Il vous reste " + pvAttaquant
+			println(monster.Name + " vous attaque et vous inflige " + dmg + " dï¿½gï¿½ts ! Il vous reste " + pvAttaquant
 					+ "pv !");
 		}
 
@@ -159,16 +159,15 @@ public class MainActivity extends Activity
 				levelUp();
 
 			promptToContinue();
-			// TODO:lvl up
 		}
 		else if (pvAttaquant == 0 && pvDefenseur > 0)
 		{
-			println("Vous avez été vaincu par le terrible " + monster.Name + "...");
+			println("Vous avez ï¿½tï¿½ vaincu par le terrible " + monster.Name + "...");
 			characterDead();
 		}
 		else
 		{
-			println("Dans une lutte sanglante et épique, vous et le " + monster.Name + " vous entretués.");
+			println("Dans une lutte sanglante et ï¿½pique, vous et le " + monster.Name + " vous entretuï¿½s.");
 			characterDead();
 		}
 
@@ -176,7 +175,7 @@ public class MainActivity extends Activity
 
 	private void characterDead()
 	{
-		println("Malgré une résistance exceptionnelle et de très belles épopées, vos aventures se terminent ici.\nCi-git "
+		println("Malgrï¿½ une rï¿½sistance exceptionnelle et de trï¿½s belles ï¿½popï¿½es, vos aventures se terminent ici.\nCi-git "
 				+ DataContainer.getInstance().currentCharacter.Name
 				+ ", "
 				+ DataContainer.getInstance().currentCharacter.Classe
@@ -203,17 +202,17 @@ public class MainActivity extends Activity
 		switch (index)
 		{
 			case 0:
-				println("Mon beau paladin, illumine mon chemin, ni troll ni gredin, ni aucun magicien, mais au moins des gobelins, histoire qu'enfin on se fasse plein d'XP, à coup de gourdin !");
+				println("Mon beau paladin, illumine mon chemin, ni troll ni gredin, ni aucun magicien, mais au moins des gobelins, histoire qu'enfin on se fasse plein d'XP, ï¿½ coup de gourdin !");
 				break;
 			case 1:
-				println("Vous entendez un bruit ! une bête approche. Attention c'est... Ah bah non c'est un poulet...");
+				println("Vous entendez un bruit ! une bï¿½te approche. Attention c'est... Ah bah non c'est un poulet...");
 				break;
 			case 2:
-				println("Bon sang, vous entendez ces tambours ? Ca me rappelle cette histoire avec ce hobbitt. Ouais, même que après le magicien il tombe dans le puit...");
+				println("Bon sang, vous entendez ces tambours ? Ca me rappelle cette histoire avec ce hobbitt. Ouais, mï¿½me que aprï¿½s le magicien il tombe dans le puit...");
 				break;
 		}
 		DataContainer.getInstance().currentCharacter.currentPV = DataContainer.getInstance().currentCharacter.Vitalite;
-		println("Puisque rien ne se passe, vous regagnez tous vos points de vie ! Vous êtes maintenant à "
+		println("Puisque rien ne se passe, vous regagnez tous vos points de vie ! Vous ï¿½tes maintenant ï¿½ "
 				+ DataContainer.getInstance().currentCharacter.currentPV + "pv !");
 		prompt();
 		promptToContinue();
@@ -233,7 +232,7 @@ public class MainActivity extends Activity
 			editText.setText("");
 			println("Tu t'appelles donc " + DataContainer.getInstance().currentCharacter.Name
 					+ " ? Sympa le nom. Et c'est quoi ta race ?");
-			println("1)Humain (+5 en vitalité)");
+			println("1)Humain (+5 en vitalitï¿½)");
 			println("2)Elfe (+5 intelligence)");
 			println("3)Nain (+5 en endurance)");
 		}
@@ -277,13 +276,13 @@ public class MainActivity extends Activity
 
 			if (classeIndex == 1)
 			{
-				println("Oh un bourrin. C'est super rare ça !");
+				println("Oh un bourrin. C'est super rare ï¿½a !");
 				DataContainer.getInstance().currentCharacter.Classe = ClasseE.Guerrier;
 				DataContainer.getInstance().currentCharacter.Force += 10;
 			}
 			else if (classeIndex == 2)
 			{
-				println("Génial, j'adore les sorciers !");
+				println("Gï¿½nial, j'adore les sorciers !");
 				DataContainer.getInstance().currentCharacter.Classe = ClasseE.Sorcier;
 				DataContainer.getInstance().currentCharacter.Intelligence += 10;
 			}
@@ -294,15 +293,15 @@ public class MainActivity extends Activity
 				DataContainer.getInstance().currentCharacter.Force += 10;
 			}
 
-			println("\nBon bah tu es prêt pour l'aventure.\nTu es donc "
+			println("\nBon bah tu es prï¿½t pour l'aventure.\nTu es donc "
 					+ DataContainer.getInstance().currentCharacter.Name + ", un "
 					+ DataContainer.getInstance().currentCharacter.Classe + " "
 					+ DataContainer.getInstance().currentCharacter.Race
-					+ ", et tes caractèristiques sont les suivantes : \nForce : "
+					+ ", et tes caractï¿½ristiques sont les suivantes : \nForce : "
 					+ DataContainer.getInstance().currentCharacter.Force + " - Intelligence : "
 					+ DataContainer.getInstance().currentCharacter.Intelligence + "\nEndurance : "
-					+ DataContainer.getInstance().currentCharacter.Endurance + " - Vitalité : "
-					+ DataContainer.getInstance().currentCharacter.Vitalite + "\n\nPrêt ? Alors c'est parti !\n");
+					+ DataContainer.getInstance().currentCharacter.Endurance + " - Vitalitï¿½ : "
+					+ DataContainer.getInstance().currentCharacter.Vitalite + "\n\nPrï¿½t ? Alors c'est parti !\n");
 
 			editText.setText("");
 			DataContainer.getInstance().currentCharacter.currentPV = DataContainer.getInstance().currentCharacter.Vitalite;
@@ -317,7 +316,7 @@ public class MainActivity extends Activity
 	private void initDungeon()
 	{
 		isCreated = true;
-		println("Bienvenue dans le terrible donjon de Nemesis. Plus redoutable et sombre qu'autrefois, il cache de redoutables pièges !");
+		println("Bienvenue dans le terrible donjon de Nemesis. Plus redoutable et sombre qu'autrefois, il cache de redoutables piï¿½ges !");
 		println("Alors que vous entrez...");
 		nextStepDungeon();
 	}
@@ -350,9 +349,9 @@ public class MainActivity extends Activity
 		int bonusVitalite = rnd.nextInt(2, 7);
 		DataContainer.getInstance().currentCharacter.Vitalite += bonusVitalite;
 
-		println("Félicitations, vous avez gagné un niveau ! \nEn plus d'un point dans toutes les caractèristiques, vous obtenez "
+		println("Fï¿½licitations, vous avez gagnï¿½ un niveau ! \nEn plus d'un point dans toutes les caractï¿½ristiques, vous obtenez "
 				+ bonusVitalite
-				+ "pv en plus !\nVous êtes à présent niveau "
+				+ "pv en plus !\nVous ï¿½tes ï¿½ prï¿½sent niveau "
 				+ DataContainer.getInstance().currentCharacter.Level + " !");
 		
 	}
